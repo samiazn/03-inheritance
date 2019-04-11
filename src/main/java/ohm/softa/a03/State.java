@@ -6,8 +6,17 @@ import org.apache.logging.log4j.Logger;
 public abstract class State {
     protected static final Logger logger = LogManager.getLogger();
 
-    protected int time = 0;
-    protected final int duration;
+    private int t = 0;
+
+    public int getTime() {
+        return t;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    private final int duration;
 
     protected State(int duration){
         this.duration = duration;
@@ -18,9 +27,9 @@ public abstract class State {
         	return this;
 
         // time goes by...
-        time = time + 1;
+        t = t + 1;
 
-        if(time < duration) {
+        if(t < duration) {
 	        logger.info("Still in {}", getClass().getSimpleName());
 	        return this;
         } else {

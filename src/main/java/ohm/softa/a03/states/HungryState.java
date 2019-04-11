@@ -21,6 +21,6 @@ public class HungryState extends State {
 
     public State feed(Cat cat){
         logger.info("Om nom nom...");
-        return new DigestingState(cat.getDigest(), duration - time);
+        return new DigestingState(cat.getDigest(), getDuration() - getTime());
     }
 }
