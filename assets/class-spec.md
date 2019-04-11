@@ -39,7 +39,7 @@ class DigestingState extends State {
 }
 
 class HungryState extends State {
-    State feed(a: Animal)
+    State feed(cat: Cat)
 }
 
 class PlayfulState extends State {
