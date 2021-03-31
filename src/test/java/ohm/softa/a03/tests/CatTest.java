@@ -1,14 +1,14 @@
 package ohm.softa.a03.tests;
 
 import ohm.softa.a03.Cat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Peter Kurfer
@@ -19,6 +19,7 @@ public class CatTest {
 	private static final int Sleep = 10;
 	private static final int Awake = 15;
 	private static final int Digest = 10;
+	private static final Logger logger = LogManager.getLogger();
 
 	private Cat animal;
 
@@ -29,6 +30,7 @@ public class CatTest {
 
 	@Test
 	void testFeedHungryAnimal() {
+		assertTrue(animal.isAsleep());
 		IntStream.range(0, Sleep).forEach(i -> animal.tick());
 		assertTrue(animal.isHungry());
 		animal.feed();
@@ -48,6 +50,9 @@ public class CatTest {
 		animal.feed();
 		//Waiting while animal is digesting
 		IntStream.range(0, Digest).forEach(i -> animal.tick());
+		logger.info(animal.getCurrentState());
+		logger.info(animal.getCurrentState().getDuration());
+		logger.info(animal.getCurrentState().getT());
 		assertTrue(animal.isPlayful());
 	}
 
@@ -65,6 +70,7 @@ public class CatTest {
 		animal.feed();
 		//Waiting while animal is digesting and in playful mood
 		IntStream.range(0, Awake).forEach(i -> animal.tick());
+		logger.info(animal.getCurrentState());
 		assertTrue(animal.isAsleep());
 	}
 }
